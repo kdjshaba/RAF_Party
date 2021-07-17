@@ -1,0 +1,21 @@
+{
+  "name": "raf_party",
+  "version": "1.0.0",
+  "description": "A JS animation generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "light-server -s ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jazznerd206/RAF_Party.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jazznerd206/RAF_Party/issues"
+  },
+  "homepage": "https://github.com/jazznerd206/RAF_Party#readme"
+}
