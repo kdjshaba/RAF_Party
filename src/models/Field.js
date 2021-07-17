@@ -3,15 +3,16 @@ import random from '../utils/random.js';
 import colors from '../utils/colors.js';
 
 export default class Field {
-    constructor(height, width, unitSize) {
+    constructor(height, width, unitSize, maxUnits) {
         this.units = [];
-        this.maxUnits = 100;
+        this.events = [];
+        this.maxUnits = maxUnits || 100;
         this.unitSize = unitSize;
         this.domField = null;
         this.height = height;
         this.width = width;
-        this.previousAnimation = null;
-        this.eLoopId = null;
+        this.eLoopId = 0;
+        this.visibleNodes = [];
         this.init();
     }
     init() {
@@ -28,11 +29,61 @@ export default class Field {
             let _X = random(0, this.width);
             let _Y = random(0, this.height);
             let _SIZE = random(5, this.unitSize);
-            console.log(`width: `, _X, _Y)
             let _COLOR = colors[random(0, colors.length)];
             let unit = new Unit(_X, _Y, _SIZE, _COLOR);
+            let _NODE = unit.createElement();
             this.units.push(unit);
-            this.domField.append(unit.createElement());
+            this.domField.append(_NODE);
         }
+    }
+    wipeScreen() {
+        console.log(this.events)
+    }
+    run() {
+        if (!this.previousAnimation) this.previousAnimation = Date.now();
+        let thisFrame = Date.now();
+        let _DIFF = thisFrame - this.previousAnimation;
+        if (this.units.length === 0) {
+            this.wipeScreen();
+            this.kill();
+            return;
+        }
+        this.eLoopId = window.requestAnimationFrame(this.run.bind(this));
+        let queue = [...this.units];
+        let event = queue.shift();
+        let delay = event.delay;
+        if (_DIFF < delay) return;
+        else {
+            let eventObject = {
+                id: this.eLoopId,
+                event: event,
+                start: thisFrame,
+                stop: thisFrame + event.length,
+                delay: event.delay,
+                length: event.length
+            }
+            this.events.push(eventObject);
+            event.show();
+        }
+        let calledEvents = [];
+        if (this.events.length > 0) {
+            calledEvents = [...this.events];
+            let calledEvent = calledEvents.shift()
+            if (thisFrame >= calledEvent.stop) {
+                calledEvent.event.hide();
+            } else {
+                calledEvents.unshift(calledEvent)
+            }
+        }
+        this.units = queue;
+        this.events = calledEvents;
+        this.previousAnimation = thisFrame;
+    }
+    kill() {
+        if (this.eLoopId !== null) {
+            window.cancelAnimationFrame.bind(this);
+            this.eLoopId = null;
+        }
+        return this;
     }
 }

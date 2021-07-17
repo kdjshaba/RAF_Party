@@ -10,3 +10,18 @@ body {
   background: black;
   color: white;
 }
+
+.node {
+  font-size: xx-small;
+  opacity: 0;
+  transition: 0.5s all ease;
+}
+
+.show {
+  font-size: xx-large;
+  opacity: 1;
+}
+
+.hide {
+  opacity: 0;
+}
