@@ -9,19 +9,42 @@ body {
   width: 100vw;
   background: black;
   color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .node {
-  font-size: xx-small;
+  border: none;
+  box-shadow: none;
+  transform: scale(0);
   opacity: 0;
-  transition: 0.5s all ease;
+  animation: none;
+  transition: 0.25s all ease;
 }
 
 .show {
-  font-size: xx-large;
+  border: 1px solid white;
+  box-shadow: 0 0 10px white;
+  transform: scale(1);
   opacity: 1;
+  animation: none;
 }
 
 .hide {
+  border: none;
+  box-shadow: none;
+  transform: scale(0);
   opacity: 0;
+  animation: none;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate3d(0, -100, 0, 1turn);
+  }
+  to {
+    transform: rotate3d(0, 0, 0, 0turn);
+  }
 }

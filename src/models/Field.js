@@ -31,13 +31,17 @@ export default class Field {
             let _SIZE = random(5, this.unitSize);
             let _COLOR = colors[random(0, colors.length)];
             let unit = new Unit(_X, _Y, _SIZE, _COLOR);
-            let _NODE = unit.createElement();
+            let _NODE = unit.createElement(i);
             this.units.push(unit);
             this.domField.append(_NODE);
         }
     }
     wipeScreen() {
-        console.log(this.events)
+        while (this.events.length > 0) {
+            let event = this.events.shift();
+            event.event.hide();
+            this.kill();
+        }
     }
     run() {
         if (!this.previousAnimation) this.previousAnimation = Date.now();
@@ -45,7 +49,6 @@ export default class Field {
         let _DIFF = thisFrame - this.previousAnimation;
         if (this.units.length === 0) {
             this.wipeScreen();
-            this.kill();
             return;
         }
         this.eLoopId = window.requestAnimationFrame(this.run.bind(this));
