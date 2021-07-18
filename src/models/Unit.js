@@ -22,12 +22,9 @@ export default class Unit {
         newElement.style.backgroundColor = this.color;
         newElement.style.borderRadius = this.borderRadius;
         newElement.id = `node-${int}`;
+        newElement.onmouseenter = this.explode.bind(this);
         this.element = newElement;
         return newElement;
-    }
-    obliterate() {
-        let el = document.getElementById(this.element.id);
-        document.remove(el);
     }
     show() {
         if (this.element.classList.contains('hide')) {
@@ -40,5 +37,20 @@ export default class Unit {
             this.element.classList.remove('show')
         }
         this.element.classList.add('hide');
+    }
+    obliterate() {
+        let el = document.getElementById(this.element.id);
+        document.remove(el);
+    }
+    explode() {
+        console.log('hovered');
+        let container = document.getElementById(this.element.id);
+        let _BLOCK_SCALE = 4;
+        let _WIDTH = parseInt(container.style.width);
+        let _HEIGHT = parseInt(container.style.height);
+        console.log(`_HEIGHT, _WIDTH, _B_S`, _HEIGHT, _WIDTH, _BLOCK_SCALE);
+        let blockWidth = _WIDTH / _BLOCK_SCALE;
+        let blockHeight = _HEIGHT / _BLOCK_SCALE;
+        console.log(`blockWidth, blockHeight`, blockWidth, blockHeight);
     }
 }
