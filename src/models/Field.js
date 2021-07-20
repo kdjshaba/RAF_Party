@@ -6,6 +6,7 @@ export default class Field {
     constructor(height, width, unitSize, maxUnits) {
         this.units = [];
         this.events = [];
+        this.loop = true;
         this.maxUnits = maxUnits || 100;
         this.unitSize = unitSize;
         this.domField = null;
@@ -30,7 +31,7 @@ export default class Field {
             let _Y = random(0, this.height);
             let _SIZE = random(5, this.unitSize);
             let _COLOR = colors[random(0, colors.length)];
-            let unit = new Unit(_X, _Y, _SIZE, _COLOR);
+            let unit = new Unit(_X, _Y, _SIZE, _COLOR, 4);
             let _NODE = unit.createElement(i);
             this.units.push(unit);
             this.domField.append(_NODE);
@@ -48,6 +49,10 @@ export default class Field {
         let thisFrame = Date.now();
         let _DIFF = thisFrame - this.previousAnimation;
         if (this.units.length === 0) {
+            if (this.loop === true) {
+                this.units = this.events;
+                return;
+            }
             this.wipeScreen();
             return;
         }

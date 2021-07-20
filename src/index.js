@@ -76,21 +76,21 @@ import colors from './utils/colors.js';
 //     }
 // }
 // content.onmouseenter = function addPad() {
-//     let els = [];
-//     let buffer = 10;
-//     for (let i = 1; i <= Math.pow(_BLOCK_SCALE, 2); i++) {
-//         let el = document.getElementById(`dyn-${i}`);
-//         els.push(el);
-//     }
-//     for (let i = 0; i < Math.pow(_BLOCK_SCALE, 2); i++) {
-//         let rand = random(buffer, (_HEIGHT - buffer));
-//             console.log('loop test' + rand);
-//             els[i].style.top = `${rand}px`;
-//             els[i].style.left = `${rand}px`;
-//             els[i].style.bottom = `${rand}px`;
-//             els[i].style.right = `${rand}px`;
-//         }
-//     }
+    // let els = [];
+    // let buffer = 10;
+    // for (let i = 1; i <= Math.pow(_BLOCK_SCALE, 2); i++) {
+    //     let el = document.getElementById(`dyn-${i}`);
+    //     els.push(el);
+    // }
+    // for (let i = 0; i < Math.pow(_BLOCK_SCALE, 2); i++) {
+    //     let rand = random(buffer, (_HEIGHT - buffer));
+    //         console.log('loop test' + rand);
+    //         els[i].style.top = `${rand}px`;
+    //         els[i].style.left = `${rand}px`;
+    //         els[i].style.bottom = `${rand}px`;
+    //         els[i].style.right = `${rand}px`;
+    //     }
+    // }
 // content.onmouseleave = function addPad() {
 //     let els = [];
 //     for (let i = 1; i <= Math.pow(_BLOCK_SCALE, 2); i++) {
@@ -111,8 +111,8 @@ let lastFrame = null;
 let coords = [];
 let _HEIGHT = window.innerHeight;
 let _WIDTH = window.innerWidth;
-let _MAX_SIZE = 50;
-let _MAX_UNITS = 1000;
+let _MAX_SIZE = 100;
+let _MAX_UNITS = 10;
 let visibleArea = new Field(_HEIGHT, _WIDTH, _MAX_SIZE, _MAX_UNITS);
 document.body.append(visibleArea.domField);
 visibleArea.generateUnits();
